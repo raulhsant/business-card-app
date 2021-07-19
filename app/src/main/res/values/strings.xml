@@ -6,9 +6,11 @@
     <string name="label_telefone">Telefone</string>
     <string name="label_email">E-mail</string>
     <string name="label_empresa">Empresa</string>
-    <string name="label_cor">Cor</string>
+    <string name="label_cor">Selecione uma Cor</string>
     <string name="label_confirmar">Confirmar</string>
     <string name="label_show_success">Cartão cadastrado com sucesso!</string>
     <string name="label_invalid_color">Cor inválida!</string>
     <string name="label_share">Compartilhar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="color_picker_title">Selecione a cor desejada</string>
 </resources>

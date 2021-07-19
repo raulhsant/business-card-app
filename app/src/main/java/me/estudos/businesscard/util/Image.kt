@@ -46,7 +46,7 @@ class Image {
 
         private fun saveMediaToStorage(context: Context, bitmap: Bitmap) {
             val filename = "Card-${System.currentTimeMillis()}.jpg"
-            var outputStream: OutputStream? = null
+            var fileOutputStream: OutputStream? = null
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 context.contentResolver?.also { resolver ->
@@ -59,7 +59,7 @@ class Image {
                     val imageUri: Uri? =
                         resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
-                    outputStream = imageUri?.let {
+                    fileOutputStream = imageUri?.let {
                         shareIntent(context, imageUri)
                         resolver.openOutputStream(it)
                     }
@@ -68,9 +68,9 @@ class Image {
                 val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
                 val image = File(imagesDir, filename)
                 shareIntent(context, Uri.fromFile(image))
-                outputStream = FileOutputStream(image)
+                fileOutputStream = FileOutputStream(image)
 
-                outputStream?.use {
+                fileOutputStream?.use {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
                     Toast.makeText(context, "Imagem capturada com sucesso!", Toast.LENGTH_SHORT)
                         .show()
