@@ -37,13 +37,13 @@ class BusinessCardAdapter :
             binding.emailText.text = businessCard.email
             binding.nomeEmpresaText.text = businessCard.empresa
             binding.card.setCardBackgroundColor(Color.parseColor(businessCard.fundoPersonalizado))
-            binding.container.setOnClickListener { listenerShare(it) }
+            binding.container.setOnClickListener { listenerShare(binding.card) }
             binding.dotsMenu.setOnClickListener { view ->
                 val popupMenu = PopupMenu(view.context, binding.dotsMenu)
                 popupMenu.inflate(R.menu.business_card_menu)
                 popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
                     if (item.itemId == R.id.share) {
-                        listenerShare(view)
+                        listenerShare(binding.card)
                         return@OnMenuItemClickListener true
                     } else if (item.itemId == R.id.delete) {
                         listenerDelete(businessCard, adapterPosition)

@@ -18,7 +18,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class Image {
+class ImageUtil {
     companion object {
         fun share(context: Context, businessCardView: View) {
             val bitmap = getScreenShotFromView(businessCardView)
@@ -69,12 +69,11 @@ class Image {
                 val image = File(imagesDir, filename)
                 shareIntent(context, Uri.fromFile(image))
                 fileOutputStream = FileOutputStream(image)
-
-                fileOutputStream?.use {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-                    Toast.makeText(context, "Imagem capturada com sucesso!", Toast.LENGTH_SHORT)
-                        .show()
-                }
+            }
+            fileOutputStream?.use {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                Toast.makeText(context, "Imagem capturada com sucesso!", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 

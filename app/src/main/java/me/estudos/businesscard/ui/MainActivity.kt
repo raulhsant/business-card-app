@@ -9,7 +9,7 @@ import me.estudos.businesscard.App
 import me.estudos.businesscard.R
 import me.estudos.businesscard.data.BusinessCard
 import me.estudos.businesscard.databinding.ActivityMainBinding
-import me.estudos.businesscard.util.Image
+import me.estudos.businesscard.util.ImageUtil
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        adapter.listenerShare = { card -> Image.share(this@MainActivity, card) }
+        adapter.listenerShare = { card -> ImageUtil.share(this@MainActivity, card) }
 
         adapter.listenerDelete =
             { businessCard: BusinessCard, position: Int -> deleteCard(businessCard, position) }
