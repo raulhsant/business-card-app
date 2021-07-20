@@ -13,4 +13,6 @@
     <string name="label_share">Compartilhar</string>
     <string name="cancel">Cancelar</string>
     <string name="color_picker_title">Selecione a cor desejada</string>
+    <string name="label_delete">Remover</string>
+    <string name="menu_dots">⋮</string>
 </resources>

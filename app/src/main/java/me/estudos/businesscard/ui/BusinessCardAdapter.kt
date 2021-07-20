@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import me.estudos.businesscard.R
 import me.estudos.businesscard.data.BusinessCard
 import me.estudos.businesscard.databinding.ItemBusinessCardBinding
 
@@ -14,6 +16,7 @@ class BusinessCardAdapter :
     ListAdapter<BusinessCard, BusinessCardAdapter.ViewHolder>(DiffCallback()) {
 
     var listenerShare: (View) -> Unit = {}
+    var listenerDelete: (BusinessCard, Int) -> Unit = { _: BusinessCard, _: Int -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,13 +31,28 @@ class BusinessCardAdapter :
 
     inner class ViewHolder(private val binding: ItemBusinessCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BusinessCard) {
-            binding.nomeText.text = item.nome
-            binding.telefoneText.text = item.telefone
-            binding.emailText.text = item.email
-            binding.nomeEmpresaText.text = item.empresa
-            binding.container.setCardBackgroundColor(Color.parseColor(item.fundoPersonalizado))
+        fun bind(businessCard: BusinessCard) {
+            binding.nomeText.text = businessCard.nome
+            binding.telefoneText.text = businessCard.telefone
+            binding.emailText.text = businessCard.email
+            binding.nomeEmpresaText.text = businessCard.empresa
+            binding.card.setCardBackgroundColor(Color.parseColor(businessCard.fundoPersonalizado))
             binding.container.setOnClickListener { listenerShare(it) }
+            binding.dotsMenu.setOnClickListener { view ->
+                val popupMenu = PopupMenu(view.context, binding.dotsMenu)
+                popupMenu.inflate(R.menu.business_card_menu)
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    if (item.itemId == R.id.share) {
+                        listenerShare(view)
+                        return@OnMenuItemClickListener true
+                    } else if (item.itemId == R.id.delete) {
+                        listenerDelete(businessCard, adapterPosition)
+                        return@OnMenuItemClickListener true
+                    }
+                    return@OnMenuItemClickListener false
+                })
+                popupMenu.show()
+            }
         }
     }
 }
